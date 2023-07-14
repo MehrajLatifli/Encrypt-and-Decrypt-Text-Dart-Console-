@@ -1,0 +1,11 @@
+name: EncryptandDecryptText
+version: 1.0.0
+description: A sample Dart project
+author: Author
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  cryptography: ^2.5.0
+  uuid: ^3.0.7
+
