@@ -16,7 +16,6 @@ Future<void> AesCbc_algorithmFuctiom() async {
 }
 
 Future<List<int>> AesCbc_Encrypt(List<int> message) async {
-
   final paddedMessage = padPKCS7(message, 16);
 
   secretBox = await algorithm.encrypt(
@@ -35,7 +34,6 @@ Future<String> AesCbc_Decrypt(List<int> cipherText, List<int> macBytes) async {
       secretKey: secretKey,
     );
 
-
     var unpaddedBytes = unpadPKCS7(decryptedBytes);
 
     var clearText = utf8.decode(unpaddedBytes, allowMalformed: true);
@@ -45,13 +43,11 @@ Future<String> AesCbc_Decrypt(List<int> cipherText, List<int> macBytes) async {
   }
 }
 
-
-
-
 List<int> padPKCS7(List<int> data, int blockSize) {
   final paddingLength = blockSize - (data.length % blockSize);
   final paddingValue = paddingLength.toRadixString(16).padLeft(2, '0');
-  final padding = List<int>.filled(paddingLength, int.parse(paddingValue, radix: 16));
+  final padding =
+      List<int>.filled(paddingLength, int.parse(paddingValue, radix: 16));
   return data + padding;
 }
 
