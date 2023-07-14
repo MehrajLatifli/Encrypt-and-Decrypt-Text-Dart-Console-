@@ -13,8 +13,6 @@ var uuid = Uuid();
 String? Get_id;
 
 Future<void> TextCreateFunction() async {
-
-
   String myString = '';
   String readyText = await myString.Readytext();
 
@@ -22,7 +20,6 @@ Future<void> TextCreateFunction() async {
 
   await serializeToJson(text, './Files/Text/text.json', 'texts');
   Get_id = text.getId;
-
 
   final updatedTexts = await deserializeFromJson<Text<String, DateTime>>(
     './Files/Text/text.json',
@@ -47,9 +44,7 @@ Future<void> TextCreateFunction() async {
   print(style2);
 }
 
-
 Future<SecretBox> CiphersEncrypt() async {
-
   String myString = '';
   String readyText = await myString.Readytext();
 
@@ -59,7 +54,8 @@ Future<SecretBox> CiphersEncrypt() async {
 
   String encryptedString = String.fromCharCodes(encryptedText);
 
-  Text<String, DateTime> text = Text(uuid.v4(), encryptedString, DateTime.now());
+  Text<String, DateTime> text =
+      Text(uuid.v4(), encryptedString, DateTime.now());
 
   await serializeToJson(text, './Files/Text/textCiphers_encrypt.json', 'texts');
   String? getTextId = text.getId;
@@ -86,18 +82,19 @@ Future<SecretBox> CiphersEncrypt() async {
   String style2 = '  ]\n}';
   print(style2);
 
-
   return secretBox;
 }
 
 Future<void> CiphersDecrypt(SecretBox secretBox) async {
-
   try {
-    String decryptedString = await AesCbc_Decrypt(secretBox.cipherText, secretBox.mac.bytes);
+    String decryptedString =
+        await AesCbc_Decrypt(secretBox.cipherText, secretBox.mac.bytes);
 
-    Text<String, DateTime> text = Text(uuid.v4(), decryptedString, DateTime.now());
+    Text<String, DateTime> text =
+        Text(uuid.v4(), decryptedString, DateTime.now());
 
-    await serializeToJson(text, './Files/Text/textCiphers_decrypt.json', 'texts');
+    await serializeToJson(
+        text, './Files/Text/textCiphers_decrypt.json', 'texts');
     String? getTextId = text.getId;
 
     final updatedTexts = await deserializeFromJson<Text<String, DateTime>>(
@@ -127,9 +124,7 @@ Future<void> CiphersDecrypt(SecretBox secretBox) async {
 }
 
 String red(String text) {
-
   final redColor = '\u001b[31m';
-
 
   final resetColor = '\u001b[0m';
 
@@ -143,15 +138,11 @@ Future<void> main() async {
   var Filesfolder = Directory(FilesfolderName);
   var Textfolder = Directory(TextfolderName);
 
-  Filesfolder.create().then((Directory newFolder) {
-
-  }).catchError((error) {
+  Filesfolder.create().then((Directory newFolder) {}).catchError((error) {
     print('Failed to create folder: $error');
   });
 
-  Textfolder.create().then((Directory newFolder) {
-
-  }).catchError((error) {
+  Textfolder.create().then((Directory newFolder) {}).catchError((error) {
     print('Failed to create folder: $error');
   });
 
@@ -167,7 +158,6 @@ Future<void> main() async {
 
     switch (choice) {
       case '1':
-
         print('\n ${red('Orginal text\n')}');
 
         await TextCreateFunction();
@@ -180,7 +170,6 @@ Future<void> main() async {
 
         await Future.delayed(Duration(seconds: 1));
         await CiphersDecrypt(secretBox);
-
 
         break;
 
